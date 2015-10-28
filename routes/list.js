@@ -25,7 +25,7 @@ module.exports=function(database){
 		});
 	});
 	router.post("/list/:id",function(req, res){
-		console.log("Creates new list element");
+		database.user.update({},{$push:{}},{safe: true, upsert: true, new : true});
 		var todo = [{text:"Go to class",creationDate:new Date(),checked:false},{text:"Buy Ice-cream",creationDate:new Date(),checked:false},{text:"Take out the trash",creationDate:new Date(),checked:false}];
 		res.send(JSON.stringify(todo));
 	});

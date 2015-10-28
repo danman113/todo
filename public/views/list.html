@@ -1,1 +1,32 @@
 <h1>Todo List</h1>
+<!-- Hilariously it comes from a tire company. -->
+<img src="http://superbuytires.com/images/Loading.gif" class="img-responsive" alt="" ng-show="loading">
+<div ng-hide="loading">
+	<div ng-show="user">
+		<h2>{{user.name}}</h2>
+		<form class="form-inline">
+			<div class="input-group">
+				<input type="text" placeholder="Task" class="form-control" id="task" maxlength="40" ng-model="newTask">
+				<span class="input-group-btn">
+					<button type="submit" class="btn btn-primary" ng-click="addNewTask()">Add</button>
+				</span>
+			</div>
+		</form>
+		<br/>
+		<div class = "" ng-repeat="todo in user.todo">
+			<div class="btn-group" ng-hide="todo.edit">
+				<button type="button" class="btn btn-primary" ng-click="check($index)"><i ng-hide="todo.checked"class="fa fa-circle-o"></i><i ng-hide="!todo.checked" class="fa fa-circle"></i></button>
+				<button type="button" class="btn btn-primary" ng-click="edit($index)">{{todo.name}}</button>
+			</div>
+			<div class="input-group" ng-show="todo.edit">
+				<span class="input-group-btn">
+					<button type="submit" class="btn btn-primary" ng-click="edit($index)">Edit</button>
+				</span>
+				<input type="text" maxlength="40" placeholder="Task" class="form-control" ng-model="todo.name">
+			</div>
+		</div>
+	</div>
+	<div ng-hide="user">
+		<h1>Error 404! List not found ;_;</h1>
+	</div>
+</div>

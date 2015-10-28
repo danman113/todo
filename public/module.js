@@ -7,7 +7,7 @@ app.config(function ($routeProvider) {
 		templateUrl: "public/views/index.html"
 	})
 	.when('/list/:id', {
-		controller:"index",
+		controller:"list",
 		templateUrl: '/public/views/list.html'
 	})
 	.otherwise({
