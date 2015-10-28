@@ -25,19 +25,25 @@ module.exports=function(database){
 		});
 	});
 	router.post("/list/:id",function(req, res){
-		database.user.update({},{$push:{}},{safe: true, upsert: true, new : true});
-		var todo = [{text:"Go to class",creationDate:new Date(),checked:false},{text:"Buy Ice-cream",creationDate:new Date(),checked:false},{text:"Take out the trash",creationDate:new Date(),checked:false}];
-		res.send(JSON.stringify(todo));
+		console.log(req.body);
+		database.user.update({name:req.params.id},{$push:{todo:{name:req.body.name,date: new Date(), checked:false}}},{safe: true, upsert: true, new : true}).then(function(data){
+			console.log(data);
+			console.log("Added task");
+			res.send(true);
+		}, function(err){
+			console.log(err);
+			res.send(false);
+		});
 	});
 	router.put("/list/:id",function(req, res){
-		console.log("Update contents of list");
-		var todo = [{text:"Go to class",creationDate:new Date(),checked:false},{text:"Buy Ice-cream",creationDate:new Date(),checked:false},{text:"Take out the trash",creationDate:new Date(),checked:false}];
-		res.send(JSON.stringify(todo));
-	});
-	router.delete("/list/:id",function(req, res){
-		console.log("Deletes a list");
-		var todo = [{text:"Go to class",creationDate:new Date(),checked:false},{text:"Buy Ice-cream",creationDate:new Date(),checked:false},{text:"Take out the trash",creationDate:new Date(),checked:false}];
-		res.send(JSON.stringify(todo));
+		var update = {};
+		update['todo.'+req.body.id]={checked:req.body.check,date:new Date(req.body.date),name:req.body.name}; 
+		database.user.update({name:req.params.id},update,{safe: true, upsert: true, new : true}).then(function(data){
+			console.log(data);
+			res.send(true);
+		}, function(err){
+			res.send(false);
+		});
 	});
 	
 	return router;
