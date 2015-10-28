@@ -6,9 +6,9 @@ app.config(function ($routeProvider) {
 		controller:"index",
 		templateUrl: "public/views/index.html"
 	})
-	.when('/window/', {
+	.when('/list/:id', {
 		controller:"index",
-		templateUrl: '/public/views/window.html'
+		templateUrl: '/public/views/list.html'
 	})
 	.otherwise({
 		redirectTo: '/'
